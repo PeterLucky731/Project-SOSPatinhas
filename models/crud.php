@@ -1,10 +1,10 @@
 <?php
 
 interface Crud{
-    public function Criar();
-    public function Ler();
-    public function Atualizar();
-    public function Excluir();
+    public function create();
+    public function read();
+    public function update();
+    public function delete();
 }
 
 
