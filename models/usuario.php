@@ -1,4 +1,7 @@
 <?php
+
+require_once "../config/database.php"
+
 class Usuario{
     private $conexao;
     private $table = 'usuario';
@@ -12,7 +15,12 @@ class Usuario{
     public $rg;
     public $telefone;
     public $foto;
+    public $id_endereco;
 
+
+    public function __construct($bd){
+        $this->conexao = $bd;
+    }
 
     public function getIdUsuario($id)
     {
@@ -23,6 +31,23 @@ class Usuario{
 
 
     public function Create(){
-        $query = "INSERT INTO {$this->table} (nome,email,senha,data_nasc,cpf,rg,telefone,foto)" 
+        $query = "INSERT INTO {$this->table} (nome,email,senha,data_nasc,cpf,rg,telefone,foto) VALUES ('{$this->nome}','{$this->email}','{$this->senha}','{$this->data_nasc}','{$this->cpf}','{$this->rg}','{$this->telefone}','{$this->foto}','{$this->id_endereco}');"; 
+        return $this->conexao->query($query);
+        
+    }
+    
+    public function Read() {
+        $query = "SELECT * FROM {$this->table}"; 
+        return $this->conexao->query($query);
+    }
+    
+    public function Update(){
+        $query = "UPDATE {$this->table} SET nome = ?, email = ?, senha = ?, data_nasc = ?, cpf = ?, rg = ?, telefone = ?, foto = ?, id_endereco = ? WHERE id = ?";
+        return $this->conexao->query($query);
+    }
+    
+    public function Delete(){
+        $query = "DELETE FROM {$this->table} WHERE {$this->id}";
+        return $this->conexao->query($query);
     }
 }
